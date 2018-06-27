@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.avi.myphotos"
+        minSdkVersion 23
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+ext {
+    androidSupportVersion = "27.1.1"
+
+    aacVersion = "1.1.1"
+    glideVersion = "3.8.0"
+    gsonVersion = "2.8.0"
+    retrofitVersion = '2.3.0'
+    okhttpLogging = '3.8.0'
+
+    rxJavaVersion = '2.1.4'
+    rxAndroidVersion = '2.0.1'
+    rxRelayVersion = '2.0.0'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:${androidSupportVersion}"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation "com.android.support:recyclerview-v7:${androidSupportVersion}"
+
+    implementation "com.github.bumptech.glide:glide:${glideVersion}"
+
+    // Retrofit & GSON
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-scalars:${retrofitVersion}"
+    implementation "com.google.code.gson:gson:${gsonVersion}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${okhttpLogging}"
+
+    // RX Java
+    implementation "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
+
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:${aacVersion}"
+    annotationProcessor "android.arch.lifecycle:compiler:${aacVersion}"
+}
