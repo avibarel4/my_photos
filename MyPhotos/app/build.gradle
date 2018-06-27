@@ -5,6 +5,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+
+    flavorDimensions "default"
+
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.avi.myphotos"
@@ -13,6 +16,13 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    productFlavors {
+        main {
+            buildConfigField('String', 'PHOTOS_KEY', '"AIzaSyCzREl07Bc_bk2hm65RtiaJ0hJ48R_nMfg"')
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
