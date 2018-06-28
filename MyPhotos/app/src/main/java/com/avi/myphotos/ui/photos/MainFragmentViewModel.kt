@@ -75,8 +75,8 @@ class MainFragmentViewModel : BaseViewModel(), PhotosAdapter.PhotosCallback {
                     handleResponse(it)
                 },{
                     // happens when no more results are available apparently :[
-                    handleResponse(null)
                     noMoreItems = true
+                    handleResponse(null)
                 })
 
             compositeDisposable.add(disposable)
@@ -87,21 +87,18 @@ class MainFragmentViewModel : BaseViewModel(), PhotosAdapter.PhotosCallback {
     private fun handleResponse(photosResponse: PhotosSearchResponse?) {
         isLoading.value = false
 
-        photosResponse?.let {
-
-            nextPageStartIndex = it.queries?.nextPage?.firstOrNull()?.startIndex
-            if (nextPageStartIndex == null) {
-                noMoreItems = true
-            }
-
-            if (it.queries?.previousPage == null) {
-                // new query
-                photosAdapter.clear()
-            }
-
-            // add the items
-            photosAdapter.addMoreItems(it.items ?: listOf(), !noMoreItems)
+        nextPageStartIndex = photosResponse?.queries?.nextPage?.firstOrNull()?.startIndex
+        if (nextPageStartIndex == null) {
+            noMoreItems = true
         }
+
+        if (photosResponse != null && photosResponse?.queries?.previousPage == null) {
+            // new query
+            photosAdapter.clear()
+        }
+
+        // add the items
+        photosAdapter.addMoreItems(photosResponse?.items ?: listOf(), !noMoreItems)
     }
 
     fun getPhotosAdapter(): PhotosAdapter {
